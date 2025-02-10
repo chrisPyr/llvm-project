@@ -67,7 +67,7 @@ cl::opt<bool> StopAfterParse(
     "gicombiner-stop-after-parse",
     cl::desc("Stop processing after parsing rules and dump state"),
     cl::cat(GICombinerEmitterCat));
-cl::list<std::string>
+static cl::list<std::string>
     SelectedCombiners("combiners", cl::desc("Emit the specified combiners"),
                       cl::cat(GICombinerEmitterCat), cl::CommaSeparated);
 cl::opt<bool> DebugCXXPreds(

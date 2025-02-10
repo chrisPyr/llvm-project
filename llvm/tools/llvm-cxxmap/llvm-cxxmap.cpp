@@ -36,14 +36,14 @@ static cl::opt<std::string> NewSymbolFile(cl::Positional, cl::Required,
 static cl::opt<std::string> RemappingFile("remapping-file", cl::Required,
                                           cl::desc("Remapping file"),
                                           cl::cat(CXXMapCategory));
-cl::alias RemappingFileA("r", cl::aliasopt(RemappingFile),
-                         cl::cat(CXXMapCategory));
+static cl::alias RemappingFileA("r", cl::aliasopt(RemappingFile),
+                                cl::cat(CXXMapCategory));
 static cl::opt<std::string> OutputFilename("output", cl::value_desc("output"),
                                            cl::init("-"),
                                            cl::desc("Output file"),
                                            cl::cat(CXXMapCategory));
-cl::alias OutputFilenameA("o", cl::aliasopt(OutputFilename),
-                          cl::cat(CXXMapCategory));
+static cl::alias OutputFilenameA("o", cl::aliasopt(OutputFilename),
+                                 cl::cat(CXXMapCategory));
 
 static cl::opt<bool> WarnAmbiguous(
     "Wambiguous",

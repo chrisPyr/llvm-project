@@ -98,8 +98,8 @@ namespace {
   cl::opt<std::string>
   InputFile(cl::desc("<input bitcode>"), cl::Positional, cl::init("-"));
 
-  cl::list<std::string>
-  InputArgv(cl::ConsumeAfter, cl::desc("<program arguments>..."));
+  static cl::list<std::string> InputArgv(cl::ConsumeAfter,
+                                         cl::desc("<program arguments>..."));
 
   cl::opt<bool> ForceInterpreter("force-interpreter",
                                  cl::desc("Force interpretation: disable JIT"),
@@ -132,10 +132,10 @@ namespace {
                                  "(jit-kind=orc-lazy only)"),
                         cl::init(0));
 
-  cl::list<std::string>
-  ThreadEntryPoints("thread-entry",
-                    cl::desc("calls the given entry-point on a new thread "
-                             "(jit-kind=orc-lazy only)"));
+  static cl::list<std::string>
+      ThreadEntryPoints("thread-entry",
+                        cl::desc("calls the given entry-point on a new thread "
+                                 "(jit-kind=orc-lazy only)"));
 
   cl::opt<bool> PerModuleLazy(
       "per-module-lazy",
@@ -143,12 +143,12 @@ namespace {
                "rather than individual functions"),
       cl::init(false));
 
-  cl::list<std::string>
+  static cl::list<std::string>
       JITDylibs("jd",
                 cl::desc("Specifies the JITDylib to be used for any subsequent "
                          "-extra-module arguments."));
 
-  cl::list<std::string>
+  static cl::list<std::string>
       Dylibs("dlopen", cl::desc("Dynamic libraries to load before linking"));
 
   // The MCJIT supports building for a target address space separate from
@@ -185,20 +185,18 @@ namespace {
             cl::value_desc("function"),
             cl::init("main"));
 
-  cl::list<std::string>
-  ExtraModules("extra-module",
-         cl::desc("Extra modules to be loaded"),
-         cl::value_desc("input bitcode"));
+  static cl::list<std::string>
+      ExtraModules("extra-module", cl::desc("Extra modules to be loaded"),
+                   cl::value_desc("input bitcode"));
 
-  cl::list<std::string>
-  ExtraObjects("extra-object",
-         cl::desc("Extra object files to be loaded"),
-         cl::value_desc("input object"));
+  static cl::list<std::string>
+      ExtraObjects("extra-object", cl::desc("Extra object files to be loaded"),
+                   cl::value_desc("input object"));
 
-  cl::list<std::string>
-  ExtraArchives("extra-archive",
-         cl::desc("Extra archive files to be loaded"),
-         cl::value_desc("input archive"));
+  static cl::list<std::string>
+      ExtraArchives("extra-archive",
+                    cl::desc("Extra archive files to be loaded"),
+                    cl::value_desc("input archive"));
 
   cl::opt<bool>
   EnableCacheManager("enable-cache-manager",

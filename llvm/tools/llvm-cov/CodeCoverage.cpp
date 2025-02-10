@@ -655,15 +655,15 @@ int CodeCoverageTool::run(Command Cmd, int argc, const char **argv) {
   cl::opt<std::string> CovFilename(
       cl::Positional, cl::desc("Covered executable or object file."));
 
-  cl::list<std::string> CovFilenames(
+  static cl::list<std::string> CovFilenames(
       "object", cl::desc("Coverage executable or object file"));
 
   cl::opt<bool> DebugDumpCollectedObjects(
       "dump-collected-objects", cl::Optional, cl::Hidden,
       cl::desc("Show the collected coverage object files"));
 
-  cl::list<std::string> InputSourceFiles("sources", cl::Positional,
-                                         cl::desc("<Source files>"));
+  static cl::list<std::string> InputSourceFiles("sources", cl::Positional,
+                                                cl::desc("<Source files>"));
 
   cl::opt<bool> DebugDumpCollectedPaths(
       "dump-collected-paths", cl::Optional, cl::Hidden,
@@ -674,13 +674,13 @@ int CodeCoverageTool::run(Command Cmd, int argc, const char **argv) {
       cl::desc(
           "File with the profile data obtained after an instrumented run"));
 
-  cl::list<std::string> Arches(
+  static cl::list<std::string> Arches(
       "arch", cl::desc("architectures of the coverage mapping binaries"));
 
   cl::opt<bool> DebugDump("dump", cl::Optional,
                           cl::desc("Show internal debug dump"));
 
-  cl::list<std::string> DebugFileDirectory(
+  static cl::list<std::string> DebugFileDirectory(
       "debug-file-directory",
       cl::desc("Directories to search for object files by build ID"));
   cl::opt<bool> Debuginfod(
@@ -698,31 +698,31 @@ int CodeCoverageTool::run(Command Cmd, int argc, const char **argv) {
                             "lcov tracefile output")),
       cl::init(CoverageViewOptions::OutputFormat::Text));
 
-  cl::list<std::string> PathRemaps(
+  static cl::list<std::string> PathRemaps(
       "path-equivalence", cl::Optional,
       cl::desc("<from>,<to> Map coverage data paths to local source file "
                "paths"));
 
   cl::OptionCategory FilteringCategory("Function filtering options");
 
-  cl::list<std::string> NameFilters(
+  static cl::list<std::string> NameFilters(
       "name", cl::Optional,
       cl::desc("Show code coverage only for functions with the given name"),
       cl::cat(FilteringCategory));
 
-  cl::list<std::string> NameFilterFiles(
+  static cl::list<std::string> NameFilterFiles(
       "name-allowlist", cl::Optional,
       cl::desc("Show code coverage only for functions listed in the given "
                "file"),
       cl::cat(FilteringCategory));
 
-  cl::list<std::string> NameRegexFilters(
+  static cl::list<std::string> NameRegexFilters(
       "name-regex", cl::Optional,
       cl::desc("Show code coverage only for functions that match the given "
                "regular expression"),
       cl::cat(FilteringCategory));
 
-  cl::list<std::string> IgnoreFilenameRegexFilters(
+  static cl::list<std::string> IgnoreFilenameRegexFilters(
       "ignore-filename-regex", cl::Optional,
       cl::desc("Skip source code files with file paths that match the given "
                "regular expression"),
@@ -756,7 +756,7 @@ int CodeCoverageTool::run(Command Cmd, int argc, const char **argv) {
       "use-color", cl::desc("Emit colored output (default=autodetect)"),
       cl::init(cl::BOU_UNSET));
 
-  cl::list<std::string> DemanglerOpts(
+  static cl::list<std::string> DemanglerOpts(
       "Xdemangler", cl::desc("<demangler-path>|<demangler-option>"));
 
   cl::opt<bool> RegionSummary(
@@ -784,8 +784,8 @@ int CodeCoverageTool::run(Command Cmd, int argc, const char **argv) {
   cl::opt<unsigned> NumThreads(
       "num-threads", cl::init(0),
       cl::desc("Number of merge threads to use (default: autodetect)"));
-  cl::alias NumThreadsA("j", cl::desc("Alias for --num-threads"),
-                        cl::aliasopt(NumThreads));
+  static cl::alias NumThreadsA("j", cl::desc("Alias for --num-threads"),
+                               cl::aliasopt(NumThreads));
 
   cl::opt<std::string> CompilationDirectory(
       "compilation-dir", cl::init(""),
@@ -1020,8 +1020,8 @@ int CodeCoverageTool::doShow(int argc, const char **argv,
   cl::opt<std::string> ShowOutputDirectory(
       "output-dir", cl::init(""),
       cl::desc("Directory in which coverage information is written out"));
-  cl::alias ShowOutputDirectoryA("o", cl::desc("Alias for --output-dir"),
-                                 cl::aliasopt(ShowOutputDirectory));
+  static cl::alias ShowOutputDirectoryA("o", cl::desc("Alias for --output-dir"),
+                                        cl::aliasopt(ShowOutputDirectory));
 
   cl::opt<bool> BinaryCounters(
       "binary-counters", cl::Optional,

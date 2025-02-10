@@ -99,8 +99,8 @@ cl::opt<std::string> OutputFilename("output", cl::value_desc("output"),
                                     cl::sub(MergeSubcommand));
 // NOTE: cl::alias must not have cl::sub(), since aliased option's cl::sub()
 // will be used. llvm::cl::alias::done() method asserts this condition.
-cl::alias OutputFilenameA("o", cl::desc("Alias for --output"),
-                          cl::aliasopt(OutputFilename));
+static cl::alias OutputFilenameA("o", cl::desc("Alias for --output"),
+                                 cl::aliasopt(OutputFilename));
 
 // Options common to at least two commands.
 static cl::opt<ProfileKinds> ProfileKind(
@@ -133,7 +133,7 @@ static cl::opt<std::string>
                    cl::desc("For merge, use the provided unstripped bianry to "
                             "correlate the raw profile."),
                    cl::sub(MergeSubcommand));
-cl::list<std::string> DebugFileDirectory(
+static cl::list<std::string> DebugFileDirectory(
     "debug-file-directory",
     cl::desc("Directories to search for object files by build ID"));
 static cl::opt<bool> DebugInfod("debuginfod", cl::init(false), cl::Hidden,
@@ -163,11 +163,12 @@ static cl::opt<std::string> FuncNameFilter(
 // options.
 
 // Options specific to merge subcommand.
-cl::list<std::string> InputFilenames(cl::Positional, cl::sub(MergeSubcommand),
-                                     cl::desc("<filename...>"));
-cl::list<std::string> WeightedInputFilenames("weighted-input",
-                                             cl::sub(MergeSubcommand),
-                                             cl::desc("<weight>,<filename>"));
+static cl::list<std::string> InputFilenames(cl::Positional,
+                                            cl::sub(MergeSubcommand),
+                                            cl::desc("<filename...>"));
+static cl::list<std::string>
+    WeightedInputFilenames("weighted-input", cl::sub(MergeSubcommand),
+                           cl::desc("<weight>,<filename>"));
 static cl::opt<ProfileFormat> OutputFormat(
     cl::desc("Format of output profile"), cl::sub(MergeSubcommand),
     cl::init(PF_Ext_Binary),
@@ -182,8 +183,8 @@ static cl::opt<std::string>
     InputFilenamesFile("input-files", cl::init(""), cl::sub(MergeSubcommand),
                        cl::desc("Path to file containing newline-separated "
                                 "[<weight>,]<filename> entries"));
-cl::alias InputFilenamesFileA("f", cl::desc("Alias for --input-files"),
-                              cl::aliasopt(InputFilenamesFile));
+static cl::alias InputFilenamesFileA("f", cl::desc("Alias for --input-files"),
+                                     cl::aliasopt(InputFilenamesFile));
 static cl::opt<bool> DumpInputFileList(
     "dump-input-file-list", cl::init(false), cl::Hidden,
     cl::sub(MergeSubcommand),
@@ -192,8 +193,8 @@ static cl::opt<std::string> RemappingFile("remapping-file",
                                           cl::value_desc("file"),
                                           cl::sub(MergeSubcommand),
                                           cl::desc("Symbol remapping file"));
-cl::alias RemappingFileA("r", cl::desc("Alias for --remapping-file"),
-                         cl::aliasopt(RemappingFile));
+static cl::alias RemappingFileA("r", cl::desc("Alias for --remapping-file"),
+                                cl::aliasopt(RemappingFile));
 static cl::opt<bool>
     UseMD5("use-md5", cl::init(false), cl::Hidden,
            cl::desc("Choose to use MD5 to represent string in name table (only "
@@ -292,8 +293,8 @@ static cl::opt<bool> OutputSparse(
 static cl::opt<unsigned> NumThreads(
     "num-threads", cl::init(0), cl::sub(MergeSubcommand),
     cl::desc("Number of merge threads to use (default: autodetect)"));
-cl::alias NumThreadsA("j", cl::desc("Alias for --num-threads"),
-                      cl::aliasopt(NumThreads));
+static cl::alias NumThreadsA("j", cl::desc("Alias for --num-threads"),
+                             cl::aliasopt(NumThreads));
 
 static cl::opt<std::string> ProfileSymbolListFile(
     "prof-sym-list", cl::init(""), cl::sub(MergeSubcommand),
@@ -418,7 +419,7 @@ static cl::opt<bool>
     ShowDetailedSummary("detailed-summary", cl::init(false),
                         cl::desc("Show detailed profile summary"),
                         cl::sub(ShowSubcommand));
-cl::list<uint32_t> DetailedSummaryCutoffs(
+static cl::list<uint32_t> DetailedSummaryCutoffs(
     cl::CommaSeparated, "detailed-summary-cutoffs",
     cl::desc(
         "Cutoff percentages (times 10000) for generating detailed summary"),

@@ -63,8 +63,8 @@ using namespace llvm;
 namespace {
   cl::opt<std::string> ProgramToRun(cl::Positional,
     cl::desc("<program to run>"));
-  cl::list<std::string>  Argv(cl::ConsumeAfter,
-    cl::desc("<program arguments>..."));
+  static cl::list<std::string> Argv(cl::ConsumeAfter,
+                                    cl::desc("<program arguments>..."));
   cl::opt<bool> TraceExecution("x",
     cl::desc("Print detailed output about what is being run to stderr."));
   cl::opt<unsigned> Timeout("t", cl::init(0),

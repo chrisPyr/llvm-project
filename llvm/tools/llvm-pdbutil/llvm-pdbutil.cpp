@@ -154,9 +154,10 @@ cl::ValuesClass ChunkValues = cl::values(
     clEnumValN(ModuleSubsection::All, "all", "All known subsections"));
 
 namespace diadump {
-cl::list<std::string> InputFilenames(cl::Positional,
-                                     cl::desc("<input PDB files>"),
-                                     cl::OneOrMore, cl::sub(DiaDumpSubcommand));
+static cl::list<std::string> InputFilenames(cl::Positional,
+                                            cl::desc("<input PDB files>"),
+                                            cl::OneOrMore,
+                                            cl::sub(DiaDumpSubcommand));
 
 cl::opt<bool> Native("native", cl::desc("Use native PDB reader instead of DIA"),
                      cl::sub(DiaDumpSubcommand));
@@ -198,9 +199,10 @@ static cl::opt<bool> Typedefs("typedefs", cl::desc("Dump typedefs"),
 FilterOptions Filters;
 
 namespace pretty {
-cl::list<std::string> InputFilenames(cl::Positional,
-                                     cl::desc("<input PDB files>"),
-                                     cl::OneOrMore, cl::sub(PrettySubcommand));
+static cl::list<std::string> InputFilenames(cl::Positional,
+                                            cl::desc("<input PDB files>"),
+                                            cl::OneOrMore,
+                                            cl::sub(PrettySubcommand));
 
 cl::opt<bool> InjectedSources("injected-sources",
                               cl::desc("Display injected sources"),
@@ -224,7 +226,7 @@ cl::opt<bool> Globals("globals", cl::desc("Dump global symbols"),
                       cl::cat(TypeCategory), cl::sub(PrettySubcommand));
 cl::opt<bool> Externals("externals", cl::desc("Dump external symbols"),
                         cl::cat(TypeCategory), cl::sub(PrettySubcommand));
-cl::list<SymLevel> SymTypes(
+static cl::list<SymLevel> SymTypes(
     "sym-types", cl::desc("Type of symbols to dump (default all)"),
     cl::cat(TypeCategory), cl::sub(PrettySubcommand),
     cl::values(
@@ -438,9 +440,10 @@ cl::opt<bool> SplitChunks(
     cl::desc(
         "When dumping debug chunks, show a different section for each chunk"),
     cl::sub(BytesSubcommand), cl::cat(ModuleCategory));
-cl::list<std::string> InputFilenames(cl::Positional,
-                                     cl::desc("<input PDB files>"),
-                                     cl::OneOrMore, cl::sub(BytesSubcommand));
+static cl::list<std::string> InputFilenames(cl::Positional,
+                                            cl::desc("<input PDB files>"),
+                                            cl::OneOrMore,
+                                            cl::sub(BytesSubcommand));
 
 } // namespace bytes
 
@@ -640,9 +643,10 @@ cl::opt<bool> DumpSectionHeaders("section-headers",
 cl::opt<bool> RawAll("all", cl::desc("Implies most other options."),
                      cl::cat(MiscOptions), cl::sub(DumpSubcommand));
 
-cl::list<std::string> InputFilenames(cl::Positional,
-                                     cl::desc("<input PDB files>"),
-                                     cl::OneOrMore, cl::sub(DumpSubcommand));
+static cl::list<std::string> InputFilenames(cl::Positional,
+                                            cl::desc("<input PDB files>"),
+                                            cl::OneOrMore,
+                                            cl::sub(DumpSubcommand));
 }
 
 namespace yaml2pdb {
@@ -717,9 +721,10 @@ cl::list<std::string> InputFilename(cl::Positional,
 } // namespace pdb2yaml
 
 namespace merge {
-cl::list<std::string> InputFilenames(cl::Positional,
-                                     cl::desc("<input PDB files>"),
-                                     cl::OneOrMore, cl::sub(MergeSubcommand));
+static cl::list<std::string> InputFilenames(cl::Positional,
+                                            cl::desc("<input PDB files>"),
+                                            cl::OneOrMore,
+                                            cl::sub(MergeSubcommand));
 cl::opt<std::string>
     PdbOutputFile("pdb", cl::desc("the name of the PDB file to write"),
                   cl::sub(MergeSubcommand));
@@ -749,9 +754,10 @@ cl::opt<InputFileType> InputType(
 } // namespace explain
 
 namespace exportstream {
-cl::list<std::string> InputFilename(cl::Positional,
-                                    cl::desc("<input PDB file>"), cl::Required,
-                                    cl::sub(ExportSubcommand));
+static cl::list<std::string> InputFilename(cl::Positional,
+                                           cl::desc("<input PDB file>"),
+                                           cl::Required,
+                                           cl::sub(ExportSubcommand));
 cl::opt<std::string> OutputFile("out",
                                 cl::desc("The file to write the stream to"),
                                 cl::Required, cl::sub(ExportSubcommand));

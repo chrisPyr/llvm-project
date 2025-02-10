@@ -82,11 +82,11 @@ cl::opt<std::string>
     InputFile("input", cl::init("/dev/null"),
               cl::desc("Filename to pipe in as stdin (default: /dev/null)"));
 
-cl::list<std::string>
+static cl::list<std::string>
     AdditionalSOs("additional-so", cl::desc("Additional shared objects to load "
                                             "into executing programs"));
 
-cl::list<std::string> AdditionalLinkerArgs(
+static cl::list<std::string> AdditionalLinkerArgs(
     "Xlinker", cl::desc("Additional arguments to pass to the linker"));
 
 cl::opt<std::string> CustomCompileCommand(
@@ -113,20 +113,20 @@ cl::opt<std::string>
 }
 
 namespace {
-cl::list<std::string> ToolArgv("tool-args", cl::Positional,
-                               cl::desc("<tool arguments>..."),
-                               cl::PositionalEatsArgs);
+static cl::list<std::string> ToolArgv("tool-args", cl::Positional,
+                                      cl::desc("<tool arguments>..."),
+                                      cl::PositionalEatsArgs);
 
-cl::list<std::string> SafeToolArgv("safe-tool-args", cl::Positional,
-                                   cl::desc("<safe-tool arguments>..."),
-                                   cl::PositionalEatsArgs);
+static cl::list<std::string> SafeToolArgv("safe-tool-args", cl::Positional,
+                                          cl::desc("<safe-tool arguments>..."),
+                                          cl::PositionalEatsArgs);
 
-static cl::opt<std::string> CCBinary("gcc", cl::init(""),
-                                     cl::desc("The gcc binary to use."));
+cl::opt<std::string> CCBinary("gcc", cl::init(""),
+                              cl::desc("The gcc binary to use."));
 
-cl::list<std::string> CCToolArgv("gcc-tool-args", cl::Positional,
-                                 cl::desc("<gcc-tool arguments>..."),
-                                 cl::PositionalEatsArgs);
+static cl::list<std::string> CCToolArgv("gcc-tool-args", cl::Positional,
+                                        cl::desc("<gcc-tool arguments>..."),
+                                        cl::PositionalEatsArgs);
 }
 
 //===----------------------------------------------------------------------===//
