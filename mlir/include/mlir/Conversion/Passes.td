@@ -169,6 +169,13 @@ def ConvertArithToEmitC : Pass<"convert-arith-to-emitc"> {
   let dependentDialects = ["emitc::EmitCDialect"];
 }
 
+def ChrisToArithConversionPass : Pass<"convert-chris-to-arith"> {
+  let summary = "Convert Chris dialect to Arith dialect";
+  let description = [{
+  }];
+  let dependentDialects = ["arith::ArithDialect"];
+}
+
 //===----------------------------------------------------------------------===//
 // ArithToLLVM
 //===----------------------------------------------------------------------===//

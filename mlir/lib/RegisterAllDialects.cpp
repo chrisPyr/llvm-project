@@ -104,6 +104,7 @@
 #include "mlir/Target/LLVM/ROCDL/Target.h"
 #include "mlir/Target/LLVM/XeVM/Target.h"
 #include "mlir/Target/SPIRV/Target.h"
+#include "mlir/Dialect/Chris/IR/ChrisDialect.h"
 
 /// Add all the MLIR dialects to the provided registry.
 void mlir::registerAllDialects(DialectRegistry &registry) {
@@ -154,7 +155,9 @@ void mlir::registerAllDialects(DialectRegistry &registry) {
                   wasmssa::WasmSSADialect,
                   x86vector::X86VectorDialect,
                   xegpu::XeGPUDialect,
-                  xevm::XeVMDialect>();
+                  xevm::XeVMDialect,
+                  chris::ChrisDialect
+                  >();
   // clang-format on
 
   // Register all external models.
