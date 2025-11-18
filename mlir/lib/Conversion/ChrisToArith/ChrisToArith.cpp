@@ -28,7 +28,7 @@ struct AddOpPat: OpRewritePattern<AddOp> {
     auto result = inputs[0];
     for(size_t i = 1; i< inputs.size(); i++) {
       //result = rewriter.create<arith::AddIOp>(op->getLoc(), result, inputs[i]);
-      result = arith::AddIOp::create(rewriter,op->getLoc(), result, inputs[i]);
+      result = arith::AddIOp::create(rewriter,op->getLoc(), result, inputs[i]); //implicit conversion from addiop to value type beacuse is has property of OneTypeResult
     }
     rewriter.replaceOp(op, ValueRange(result));
     return success();
